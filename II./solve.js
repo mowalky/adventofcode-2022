@@ -1,5 +1,5 @@
 var fs = require("fs");
-const stratGuides = fs.readFileSync("input.txt", "utf8").split(/\r?\n/);
+const stratGuides = fs.readFileSync("test.txt", "utf8").split(/\r?\n/);
 
 let myScore = 0;
 
@@ -15,28 +15,38 @@ function updateScore(points, move, round) {
   myScore = myScore + points + bonus;
 }
 
+function winCondition(outcome) {
+  console.log(outcome);
+  if (outcome == "X") return "lost";
+  if (outcome == "Y") return "draw";
+  if (outcome == "Z") return "win";
+}
+
 function playGame(opponent, me, round) {
   let opponentMove = convertShape(opponent);
   let myMove = convertShape(me);
+  let outcome = winCondition(me);
 
-  console.log(`== ${opponentMove} vs ${myMove} == `);
+  console.log(`== ${opponentMove} == `);
+  console.log("Win Conditions: ", outcome);
 
-  if (opponentMove == myMove) {
-    console.log("draw");
-    updateScore(3, myMove, round);
+  if (outcome == "draw") {
+    // draw take the shape of the opponent and score
+    updateScore(3, opponentMove, round);
     return;
   }
 
-  // PAPER BEATS ROCK
-  if (
-    (opponentMove == "ROCK" && myMove == "PAPER") ||
-    (opponentMove == "SCISSOR" && myMove == "ROCK") ||
-    (opponentMove == "PAPER" && myMove == "SCISSOR")
-  ) {
-    console.log("won!");
-    updateScore(6, myMove, round);
+  if (outcome == "win") {
+    let winningMove = "";
+
+    // determine opponent's winning shape
+    if (opponentMove == "ROCK") winningMove = "PAPER";
+    if (opponentMove == "SCISSOR") winningMove = "ROCK";
+    if (opponentMove == "PAPER") winningMove = "SCISSOR";
+
+    updateScore(6, winningMove, round);
   } else {
-    console.log("lost!");
+    // I lose, just give me shape points
     updateScore(0, myMove, round);
   }
 }
