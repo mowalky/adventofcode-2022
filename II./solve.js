@@ -1,16 +1,5 @@
-/*
-
-A/X = ROCK (1 pt)
-B/Y = PAPER (2 pts)
-C/Z = SCISSOR (3 pts)
-
-lost = 0pt
-draw = 3pts
-won =  6pts
-
-*/
-
-const stratGuide = ["A Y", "B X", "C Z"];
+var fs = require("fs");
+const stratGuides = fs.readFileSync("input.txt", "utf8").split(/\r?\n/);
 
 let myScore = 0;
 
@@ -30,7 +19,7 @@ function playGame(opponent, me, round) {
   let opponentMove = convertShape(opponent);
   let myMove = convertShape(me);
 
-  console.log(`${opponentMove} vs ${myMove} = `);
+  console.log(`== ${opponentMove} vs ${myMove} == `);
 
   if (opponentMove == myMove) {
     console.log("draw");
@@ -63,5 +52,5 @@ function evalGame(game, round) {
   playGame(opponent, me, round);
 }
 
-stratGuide.forEach((g, i) => evalGame(g, i + 1));
+stratGuides.forEach((g, i) => evalGame(g, i + 1));
 console.log("final score: ", myScore);
