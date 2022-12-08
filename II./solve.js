@@ -1,5 +1,5 @@
 var fs = require("fs");
-const stratGuides = fs.readFileSync("test.txt", "utf8").split(/\r?\n/);
+const stratGuides = fs.readFileSync("input.txt", "utf8").split(/\r?\n/);
 
 let myScore = 0;
 
@@ -47,7 +47,12 @@ function playGame(opponent, me, round) {
     updateScore(6, winningMove, round);
   } else {
     // I lose, just give me shape points
-    updateScore(0, myMove, round);
+    let losingMove;
+    if (opponentMove == "ROCK") losingMove = "SCISSOR";
+    if (opponentMove == "SCISSOR") losingMove = "PAPER";
+    if (opponentMove == "PAPER") losingMove = "ROCK";
+
+    updateScore(0, losingMove, round);
   }
 }
 
