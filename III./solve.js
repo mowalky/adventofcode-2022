@@ -12,8 +12,9 @@
  */
 
 var fs = require("fs");
-const rucksacks = fs.readFileSync("test.txt", "utf8").split(/\r?\n/);
+const rucksacks = fs.readFileSync("input.txt", "utf8").split(/\r?\n/);
 
+let total = 0;
 function itemPriority(item) {
   let priority;
   if (item == item.toLowerCase()) {
@@ -22,7 +23,7 @@ function itemPriority(item) {
     priority = item.toLowerCase().charCodeAt(0) - 97 + 27;
   }
 
-  console.log(priority);
+  return priority;
 }
 
 function commonItems(comp1, comp2) {
@@ -33,7 +34,8 @@ function commonItems(comp1, comp2) {
     if (spreadOutComp1.includes(c)) commonItem = c;
   });
   console.log("common item: ", commonItem);
-  itemPriority(commonItem);
+  let priority = itemPriority(commonItem);
+  total = total + priority;
 }
 
 function compartments(rucksack) {
@@ -49,3 +51,5 @@ rucksacks.forEach((rucksack) => {
   console.log(rucksack);
   compartments(rucksack);
 });
+
+console.log(total);
