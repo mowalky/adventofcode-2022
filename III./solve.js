@@ -8,6 +8,10 @@
  *   2. find common item type that appears in BOTH comparments
  *   3. find the priority of common item type
  *   4. sum the priorities of the item types
+ * 
+ *   5. Group rucksacks into three
+ *   6. Find common item type between all three
+ *   7. sum the priorities
  *
  */
 
@@ -15,6 +19,8 @@ var fs = require("fs");
 const rucksacks = fs.readFileSync("input.txt", "utf8").split(/\r?\n/);
 
 let total = 0;
+let ruckgroup = 0;
+
 function itemPriority(item) {
   let priority;
   if (item == item.toLowerCase()) {
@@ -47,7 +53,8 @@ function compartments(rucksack) {
   console.log("====\n");
 }
 
-rucksacks.forEach((rucksack) => {
+rucksacks.forEach((rucksack, idx) => {
+  if
   console.log(rucksack);
   compartments(rucksack);
 });
