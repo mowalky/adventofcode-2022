@@ -2,6 +2,7 @@ var fs = require("fs");
 const assignments = fs.readFileSync("input.txt", "utf8").split(/\r?\n/);
 
 let total = 0;
+let partial = 0;
 
 assignments.forEach((assignment) => {
   const [pairOne, pairTwo] = assignment.split(",");
@@ -19,6 +20,12 @@ assignments.forEach((assignment) => {
     console.log("contained!");
     total++;
   }
+
+  if (pairTwoStart <= pairOneEnd && pairTwoEnd >= pairOneStart) {
+    console.log("partially contained!");
+    partial++;
+  }
+
   console.log(`===`);
 });
-console.log(total);
+console.log(partial);
