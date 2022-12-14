@@ -14,4 +14,16 @@
 
 let stacks = [["N", "Z"], ["D", "C", "M"], ["P"]];
 
-console.log(stacks[0]);
+var fs = require("fs");
+const moves = fs.readFileSync("test.txt", "utf8").split(/\r?\n/);
+
+console.log(moves);
+
+moves.forEach((move) => {
+  let m = move.split(" ");
+  let toMove = m[1];
+  let from = m[3];
+  let to = m[5];
+
+  console.log(`#${toMove} - ${from} => ${to}`);
+});
