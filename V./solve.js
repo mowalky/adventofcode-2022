@@ -17,7 +17,11 @@ let stacks = [["N", "Z"], ["D", "C", "M"], ["P"]];
 var fs = require("fs");
 const moves = fs.readFileSync("test.txt", "utf8").split(/\r?\n/);
 
-console.log(moves);
+function moveCrate(from, to) {
+  let crate = stacks[from - 1][0]; // get top crate
+  stacks[to - 1].unshift(crate); // set crate on top of new stack
+  stacks[from - 1].shift(); // remove top crate from original stack
+}
 
 moves.forEach((move) => {
   let m = move.split(" ");
@@ -25,5 +29,11 @@ moves.forEach((move) => {
   let from = m[3];
   let to = m[5];
 
-  console.log(`#${toMove} - ${from} => ${to}`);
+  let moves = toMove;
+  for (let m = 1; m <= moves; m++) {
+    moveCrate(from, to);
+  }
 });
+
+// get top of each stack
+console.log(stacks.map((s) => s[0]));
